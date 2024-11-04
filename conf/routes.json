@@ -1,0 +1,12 @@
+{
+    "PUBLIC_ACCESS" : {
+        "/register" : "RegisterController",
+        "/login": "LoginController",
+        "/logout" : "LogoutController",
+        "error" : "ErrorController"
+    },
+    "ROLE_USER" : {
+        "/": "HomeController",
+        "/edit" : "EditController"
+    }
+}

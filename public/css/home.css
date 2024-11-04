@@ -1,0 +1,30 @@
+body, p, form {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: start;
+    padding: 1%;
+    border-bottom: 2px solid black;
+    p {
+        margin: 0 3%;
+    }
+}
+.main {
+    padding: 2%;
+    .medias {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 2% 0;
+        .media {
+            padding: 1%;
+            margin: 1%;
+            border: 1px solid black;
+            border-radius: 3px;
+            min-width: 10%;
+            text-align: center;
+        }
+    }
+}

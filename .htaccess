@@ -1,0 +1,7 @@
+# Enable the RewriteEngine module
+RewriteEngine On
+
+# Rewrite rule to redirect all requests to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]

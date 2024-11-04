@@ -1,0 +1,6 @@
+{
+    "User": {
+        "algorithm": "PASSWORD_BCRYPT",
+        "cost" : "PASSWORD_BCRYPT_DEFAULT_COST"
+    }
+}

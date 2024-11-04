@@ -1,0 +1,13 @@
+<?php
+require_once "src/database.php";
+$req = $db->pdo->prepare("SELECT table_name FROM information_schema.tables WHERE table_schema = :table_schema ");
+$req->bindParam(':table_schema', $db->dbname);
+$req->execute();
+$res = $req->fetchAll();
+
+foreach ($res as $row) {
+    $query = "TRUNCATE TABLE $row[0];";
+    $req = $db->pdo->prepare($query);
+    $req->execute();
+    echo "\033[32m      > executed : $query \033[0m\n";
+}

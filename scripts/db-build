@@ -1,0 +1,47 @@
+<?php
+require_once "src/database.php";
+require_once "src/autoloader.php";
+
+$models = array_slice(scandir("src/Model"),2);
+foreach ($models as $model) {
+    $class = substr($model,0,-4); //remove .php
+    $fqcn = "App\Model\\".$class;
+    $reflect = new \ReflectionClass($fqcn);
+
+    $queries[] = "DROP TABLE IF EXISTS $class";
+    if (defined("$fqcn::DBTYPES") && !$reflect->isAbstract()) { //Abstract classes are ignored
+        $query = "CREATE TABLE $class (";
+        
+        $dbtypes = [];
+        $currentClass = $fqcn;
+        while ($currentClass) {
+            if (defined("$currentClass::DBTYPES")) {
+                $dbtypes = array_merge($dbtypes, $currentClass::DBTYPES);
+            }
+            $currentClass = get_parent_class($currentClass);
+        }
+
+        foreach ($dbtypes as $property => $type) {
+            if (str_starts_with($type, "id")) {
+                $type = "INT PRIMARY KEY AUTO_INCREMENT";
+            }
+            if (str_starts_with($type,"Enum")) {
+                $enum = "App\\Enum\\" . substr($type, 5);
+                $enums = array_map(fn($case) => $case->value, $enum::cases());
+
+                $type = "ENUM('" . implode("', '", $enums) . "')";
+            }
+            $query .= "$property $type, ";
+        }
+
+        $query = substr($query, 0, -2) . ")"; //-2 pour ", "
+        $queries[] = $query;
+    }
+}
+foreach ($queries as $query) {
+    $req = $db->pdo->prepare($query);
+    $req->execute();
+    echo "\033[32m      > executed : $query \033[0m\n";
+}
+
+?>

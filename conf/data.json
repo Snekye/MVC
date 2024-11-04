@@ -1,0 +1,38 @@
+{
+    "User" : [
+        {
+            "username" : "admin",
+            "password" : "admin",
+            "role" : "ROLE_ADMIN"
+        },
+        {
+            "username" : "user",
+            "password" : "user",
+            "role" : "ROLE_USER"
+        }
+    ],
+    "Book" : [
+        {
+            "pageNumber" : 80,
+            "title" : "1984",
+            "author" : "George Orwell",
+            "available" : true
+        }
+    ],
+    "Album" : [
+        {
+            "songNumber" : 12,
+            "title" : "Tarot",
+            "editor" : "Primitive Ways Record",
+            "author" : "Aether Realm",
+            "available" : true
+        },
+        {
+            "songNumber" : 4,
+            "title" : "D>E>A>T>H>M>E>T>A>L",
+            "editor" : "Panchiko",
+            "author" : "Panchiko",
+            "available" : true
+        }
+    ]
+}
