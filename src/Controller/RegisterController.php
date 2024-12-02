@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\DB;
-use App\Model\Album;
+use App\Model\User;
 use App\Controller\AbstractController;
 
 class RegisterController extends AbstractController {
@@ -11,6 +11,7 @@ class RegisterController extends AbstractController {
 
     public function index() {
         if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password2'])) {
+            $db = new DB();
             if ($_POST['password'] !== $_POST['password2']) {
                 $message = "Les mots de passe ne correspondent pas.";
             }
@@ -21,10 +22,14 @@ class RegisterController extends AbstractController {
                 $message = "Le mot  de passe ne doit pas contenir votre nom d'utilisateur";
             }
             else {
+                $user = new User();
+                $user->setPassword($_POST['password']);
+                $user->setUsername($_POST['username']);
+                $user->setRole("ROLE_USER");
+                $db->saveOne($user);
+
                 $message = "ok";
             }
-
-            $db = new DB();
         }
 
         $this->render("register", [
